@@ -9,6 +9,7 @@ const app = express();
 
 //Middileware
 app.use(express.json()); //to parse req.body
+app.use(express.urlencoded({ extended: true })); //to parse form data(urlencoded)
 app.use("/api/auth", authRoutes);
 
 app.listen(5000, () => {
