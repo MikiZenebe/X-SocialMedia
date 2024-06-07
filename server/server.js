@@ -8,6 +8,7 @@ dotenv.config();
 const app = express();
 
 //Middileware
+app.use(express.json()); //to parse req.body
 app.use("/api/auth", authRoutes);
 
 app.listen(5000, () => {
