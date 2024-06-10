@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import { v2 as cloudinary } from "cloudinary";
 import Notification from "../models/notificationModel.js";
 import User from "../models/userModel.js";
 
@@ -124,5 +125,46 @@ export const updateUser = async (req, res) => {
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(newPassword, salt);
     }
-  } catch (error) {}
+
+    if (profileImg) {
+      if (user.profileImg) {
+        // https://res.cloudinary.com/dyfqon1v6/image/upload/v1712997552/zmxorcxexpdbh8r0bkjb.png
+        await cloudinary.uploader.destroy(
+          user.profileImg.split("/").pop().split(".")[0]
+        );
+      }
+
+      const uploadedResponse = await cloudinary.uploader.upload(profileImg);
+      profileImg = uploadedResponse.secure_url;
+    }
+
+    if (coverImg) {
+      if (user.coverImg) {
+        await cloudinary.uploader.destroy(
+          user.coverImg.split("/").pop().split(".")[0]
+        );
+      }
+
+      const uploadedResponse = await cloudinary.uploader.upload(coverImg);
+      coverImg = uploadedResponse.secure_url;
+    }
+
+    user.fullName = fullName || user.fullName;
+    user.email = email || user.email;
+    user.username = username || user.username;
+    user.bio = bio || user.bio;
+    user.link = link || user.link;
+    user.profileImg = profileImg || user.profileImg;
+    user.coverImg = coverImg || user.coverImg;
+
+    user = await user.save();
+
+    // password should be null in response
+    user.password = null;
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log("Error in updateUser: ", error.message);
+    res.status(500).json({ error: error.message });
+  }
 };
