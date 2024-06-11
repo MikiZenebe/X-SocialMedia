@@ -6,6 +6,7 @@ import connectDB from "./db/connectDB.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 //Initial
 const app = express();
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true })); //to parse form data(urlencoded
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/notification", notificationRoutes);
 
 app.listen(5000, () => {
   console.log("Server is running");
