@@ -1,3 +1,42 @@
+import { useState } from "react";
+import Posts from "../components/common/Posts";
+import CreatePost from "../components/CreatePost";
+
 export default function HomePage() {
-  return <div>HomePage</div>;
+  const [feedType, setFeedType] = useState("forYou");
+
+  return (
+    <>
+      <div className="flex-[4_4_0] mr-auto   min-h-screen pt-8 w-full">
+        {/* Header */}
+        <div className="flex w-full border-b border-gray-700">
+          <div
+            className={
+              "flex justify-center flex-1 p-3 hover:bg-[#1D232A] transition duration-300 cursor-pointer relative"
+            }
+            onClick={() => setFeedType("forYou")}
+          >
+            For you
+            {feedType === "forYou" && (
+              <div className="absolute bottom-0 w-10  h-1 rounded-full bg-[#1da1f2]"></div>
+            )}
+          </div>
+          <div
+            className="flex justify-center flex-1 p-3 hover:bg-[#1D232A] transition duration-300 cursor-pointer relative"
+            onClick={() => setFeedType("following")}
+          >
+            Following
+            {feedType === "following" && (
+              <div className="absolute bottom-0 w-10  h-1 rounded-full bg-[#1da1f2]"></div>
+            )}
+          </div>
+        </div>
+        {/*  CREATE POST INPUT */}
+        <CreatePost />
+
+        {/* POSTS */}
+        <Posts />
+      </div>
+    </>
+  );
 }
