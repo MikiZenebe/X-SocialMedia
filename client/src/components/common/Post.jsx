@@ -50,7 +50,7 @@ const Post = ({ post }) => {
                 @{postOwner.username}
               </Link>
             </div>
-            <div className="text-gray-700">{formattedDate}</div>
+            <div className="text-gray-600">{formattedDate}</div>
           </div>
           <div className="flex flex-col gap-3 overflow-hidden">
             <span>{post.text}</span>
@@ -102,7 +102,9 @@ const Post = ({ post }) => {
                 className="modal border-none outline-none"
               >
                 <div className="modal-box rounded border border-gray-600">
-                  <h3 className="font-bold text-lg mb-4">COMMENTS</h3>
+                  <h3 className="font-bold text-lg mb-4 text-white">
+                    COMMENTS
+                  </h3>
                   <div className="flex flex-col gap-3 max-h-60 overflow-auto">
                     {post.comments.length === 0 && (
                       <p className="text-sm text-slate-500">
