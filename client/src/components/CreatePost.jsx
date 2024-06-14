@@ -71,12 +71,11 @@ export default function CreatePost() {
 
         <div className="flex justify-around md:justify-between border-t py-2 border-t-[#363636]">
           <div>
-            <div className="flex gap-1 items-center cursor-pointer">
-              <CiImageOn
-                size={20}
-                className="fill-[#6e6e6e] cursor-pointer "
-                onClick={() => imgRef.current.click()}
-              />
+            <div
+              onClick={() => imgRef.current.click()}
+              className="flex gap-1 items-center cursor-pointer"
+            >
+              <CiImageOn size={20} className="fill-[#6e6e6e] cursor-pointer " />
               <span className="hidden md:flex">Image</span>
               <input
                 type="file"

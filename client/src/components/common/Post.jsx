@@ -44,7 +44,7 @@ const Post = ({ post }) => {
               </Link>
 
               <Link
-                className="text-gray-700 flex gap-1 text-sm"
+                className="text-gray-600 flex gap-1 text-sm"
                 to={`/profile/${postOwner.username}`}
               >
                 @{postOwner.username}
@@ -126,7 +126,7 @@ const Post = ({ post }) => {
                             <span className="font-bold">
                               {comment.user.fullName}
                             </span>
-                            <span className="text-gray-700 text-sm">
+                            <span className="text-gray-600 text-sm">
                               @{comment.user.username}
                             </span>
                           </div>
@@ -140,7 +140,7 @@ const Post = ({ post }) => {
                     onSubmit={handlePostComment}
                   >
                     <textarea
-                      className="textarea w-full p-1 rounded text-md resize-none border focus:outline-none  border-gray-800"
+                      className="textarea w-full p-2 rounded text-md resize-none border focus:outline-none  border-gray-800"
                       placeholder="Add a comment..."
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
