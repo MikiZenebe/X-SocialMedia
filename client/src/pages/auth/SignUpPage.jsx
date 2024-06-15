@@ -7,7 +7,7 @@ import {
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Logo from "/logo.png";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 export default function SignUpPage() {
@@ -18,7 +18,14 @@ export default function SignUpPage() {
     password: "",
   });
 
-  const { mutate, isError, isPending, error } = useMutation({
+  const queryClient = useQueryClient();
+
+  const {
+    mutate: signUpMutate,
+    isError,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: async ({ email, username, fullName, password }) => {
       try {
         const res = await fetch(`/api/auth/signup`, {
@@ -38,11 +45,16 @@ export default function SignUpPage() {
         toast.error(error.message);
       }
     },
+
+    onSuccess: () => {
+      //refetch the authUser
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+    },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate(formData);
+    signUpMutate(formData);
   };
 
   const handleInputChange = (e) => {
