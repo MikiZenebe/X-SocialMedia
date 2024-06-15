@@ -290,10 +290,14 @@ const Post = ({ post }) => {
               <div>
                 {isMyPost && (
                   <span className="flex justify-end flex-1">
-                    <FaTrash
-                      className="cursor-pointer hover:text-red-500"
-                      onClick={handleDeletePost}
-                    />
+                    {!isDeleting && (
+                      <FaTrash
+                        className="cursor-pointer hover:text-red-500"
+                        onClick={handleDeletePost}
+                      />
+                    )}
+
+                    {isDeleting && <LoadingSpinner size="sm" />}
                   </span>
                 )}
               </div>
