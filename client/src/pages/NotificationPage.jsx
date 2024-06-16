@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+
 import LoadingSpinner from "../components/common/LoadingSpinner";
 
 import { IoSettingsOutline } from "react-icons/io5";
@@ -6,31 +9,46 @@ import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 
 export default function NotificationPage() {
-  const isLoading = false;
-  const notifications = [
-    {
-      _id: "1",
-      from: {
-        _id: "1",
-        username: "johndoe",
-        profileImg: "/avatars/boy2.png",
-      },
-      type: "follow",
-    },
-    {
-      _id: "2",
-      from: {
-        _id: "2",
-        username: "janedoe",
-        profileImg: "/avatars/girl1.png",
-      },
-      type: "like",
-    },
-  ];
+  const queryClient = useQueryClient();
 
-  const deleteNotifications = () => {
-    alert("All notifications deleted");
-  };
+  const { data: notifications, isLoading } = useQuery({
+    queryKey: ["notifications"],
+    queryFn: async () => {
+      try {
+        const res = await fetch("/api/notification");
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Something went wrong");
+        console.log(data);
+        return data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+  });
+
+  const { mutate: deleteNotifications } = useMutation({
+    mutationFn: async () => {
+      try {
+        const res = await fetch("/api/notification", {
+          method: "DELETE",
+        });
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || "Something went wrong");
+        toast.success("Notifications deleted successfully");
+
+        return data;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   return (
     <>
@@ -59,8 +77,8 @@ export default function NotificationPage() {
         {notifications?.length === 0 && (
           <div className="text-center p-4 font-bold">No notifications 🤔</div>
         )}
+
         <div className="flex flex-col gap-2 rounded-lg">
-          {" "}
           {notifications?.map((notification) => (
             <div className=" bg-[#272e38] " key={notification._id}>
               <div className="flex gap-2 p-4 items-center">
