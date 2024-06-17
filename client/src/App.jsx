@@ -56,7 +56,7 @@ export default function App() {
           element={user ? <NotificationPage /> : <Navigate to="/login" />}
         />
         <Route
-          path="/profile/:id"
+          path="/profile/:username"
           element={user ? <ProfilePage /> : <Navigate to="/login" />}
         />
       </Routes>
