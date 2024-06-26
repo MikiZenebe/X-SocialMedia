@@ -1,10 +1,11 @@
 # X-Tweet
 
-https://jibruk-ecommerce.vercel.app/
+https://x-socialmedia.onrender.com
 
 Welcome to X-Tweet, a social media platform alternative to Twitter-X.
-![screencapture-jibruk-ecommerce-vercel-app-2023-03-16-21_10_37](https://user-images.githubusercontent.com/102186185/225714066-183acaa9-384f-460b-9e7b-11448bc07eb9.png)
-![screencapture-jibruk-ecommerce-vercel-app-product-nike-men-s-basketball-2023-03-16-21_11_24](https://user-images.githubusercontent.com/102186185/225714234-97f157aa-60cc-499f-be62-415f6bbe84b4.png)
+![screencapture-x-socialmedia-onrender-profile-Mikiyas-2024-06-26-10_32_51](https://github.com/MikiZenebe/X-SocialMedia/assets/102186185/099b8188-1eec-4d94-901f-ce1b23e14d41)
+![screencapture-x-socialmedia-onrender-2024-06-26-10_31_16](https://github.com/MikiZenebe/X-SocialMedia/assets/102186185/33aa10e7-3092-4199-8c77-7e84272895cc)
+
 
 # Features
 
